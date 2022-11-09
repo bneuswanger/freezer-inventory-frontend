@@ -11,7 +11,6 @@ import React from 'react';
 function App() {
   return (
     <>
-    <React.StrictMode>
       <Router>
         <div className="container">
           <Header />
@@ -24,7 +23,6 @@ function App() {
         </div>
       </Router>
       <ToastContainer />
-      </React.StrictMode>
     </>
   );
 }
