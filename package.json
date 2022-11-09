@@ -1,6 +1,6 @@
 {
   "name": "frontend",
-  "homepage": "https://router--freezer-inventory.netlify.app/",
+  "homepage": "https://freezer-inventory.cyclic.app/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
