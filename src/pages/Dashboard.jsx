@@ -86,7 +86,7 @@ function Dashboard() {
         </ul>
       </section>
       <section className='heading'>
-        <h1>{user && user.name.split(' ')[0]}'s Freezers - router branch</h1>
+        <h1>{user && user.name.split(' ')[0]}'s Freezer Inventory</h1>
         <GiOpenTreasureChest className='treasure_chest' />
       </section>
       <h1 className='group-header'>Add New Item</h1>
