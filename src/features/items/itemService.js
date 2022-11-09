@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const API_URL = 'https://freezer-inventory.cyclic.app/api/items/'
+// const API_URL = '/api/items/'
 
 //Create new item
 
