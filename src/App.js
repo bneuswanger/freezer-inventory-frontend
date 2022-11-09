@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Printable from './pages/Printable';
 import React from 'react';
+//comment for testing
 
 function App() {
   return (
