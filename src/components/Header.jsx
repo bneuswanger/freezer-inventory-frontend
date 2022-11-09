@@ -30,12 +30,12 @@ function Header() {
       <ul>
         {user ? (
           <>
-            <a
+            <Link
               className='btn'
-              href='/printable'
+              to='/printable'
               target='_blank'>
               <BsFillPrinterFill /> Print
-            </a>
+            </Link>
             <li>
               <button
                 className='btn'
