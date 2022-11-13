@@ -10,7 +10,9 @@
   --color-charcoal: #3f4754ff;
   --color-sonic-silver: #707478ff;
   --color-light-gray: #d5d6d8ff;
+  background-color: var(--color-eerie-black);
 }
+
 
 * {
   margin: 0;
@@ -68,7 +70,6 @@ h3 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-eerie-black);
   color: var(--color-alice-blue);
 }
 
