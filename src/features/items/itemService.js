@@ -1,7 +1,7 @@
 import axios from 'axios'
 
-const API_URL = 'https://freezer-inventory.cyclic.app/api/items/'
-// const API_URL = '/api/items/'
+let API_URL;
+process.env.NODE_ENV === "production" ? API_URL = 'https://freezer-inventory.cyclic.app/api/items/'  : API_URL = '/api/items/'
 
 //Create new item
 
