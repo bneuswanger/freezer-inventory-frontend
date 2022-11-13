@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let API_URL;
-process.env.NODE_ENV === "production" ? API_URL = 'https://freezer-inventory.cyclic.app/api/items/' : API_URL = '/api/users/'
+process.env.NODE_ENV === "production" ? API_URL = 'https://freezer-inventory.cyclic.app/api/users/' : API_URL = '/api/users/'
 
 // Register user
 const register = async (userData) => {
