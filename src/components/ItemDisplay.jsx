@@ -24,27 +24,27 @@ function ItemDisplay({ item }) {
   }
 
   const chooseImage = () => {
-    if (item.description.toLowerCase().includes('chicken')) {
+    if (item.description.includes('chicken')) {
       return '/chicken.jpg'
-    } else if (item.description.toLowerCase().includes('venison')) {
+    } else if (item.description.includes('venison')) {
       return '/venison.jpg'
-    } else if (item.description.toLowerCase().includes('fish')) {
+    } else if (item.description.includes('fish')) {
       return '/fish.jpg'
-    } else if (item.description.toLowerCase().includes('corn')) {
+    } else if (item.description.includes('corn')) {
       return '/corn.jpg'
-    } else if (item.description.toLowerCase().includes('kale')) {
+    } else if (item.description.includes('kale')) {
       return '/kale.jpg'
-    } else if (item.description.toLowerCase().includes('chanterelle')) {
+    } else if (item.description.includes('chanterelle')) {
       return '/chanterelle.jpg'
-    } else if (item.description.toLowerCase().includes('hedgehog')) {
+    } else if (item.description.includes('hedgehog')) {
       return '/hedgehog.jpg'
-    } else if (item.description.toLowerCase().includes('lobster')) {
+    } else if (item.description.includes('lobster')) {
       return '/lobster.jpg'
-    } else if (item.description.toLowerCase().includes('beans: green')) {
+    } else if (item.description.includes('beans: green')) {
       return '/greenbeans.jpg'
-    } else if (item.description.toLowerCase().includes('beans: dragon')) {
+    } else if (item.description.includes('beans: dragon')) {
       return '/mixedbeans.jpg'
-    } else if (item.description.toLowerCase().includes('blueberr')) {
+    } else if (item.description.includes('blueberr')) {
       return '/blueberries.jpg'
     } else {
       return '/noimg.jpg'

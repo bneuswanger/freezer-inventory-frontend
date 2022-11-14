@@ -1,35 +1,36 @@
 import ReactDom from 'react-dom'
-import { useState } from 'react'
+import { useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateItem } from '../features/items/itemSlice'
 import { FaSave } from 'react-icons/fa'
 import { AiOutlineStop } from 'react-icons/ai'
 
 function EditModal({ open, onSave, onCancel, item }) {
+  const descriptionInputRef = useRef()
+  const quantityInputRef = useRef()
+  const mealsperquantityInputRef = useRef()
+  const categoryInputRef = useRef()
+  const locationInputRef = useRef()
+  const yearInputRef = useRef()
+  const notesInputRef = useRef()
   const dispatch = useDispatch()
 
-  const [editedItem, setEditedItem] = useState({
-    ...item,
-  })
-
   const onSubmit = (e) => {
-    const id = editedItem._id
     e.preventDefault()
+
+    const editedItem = {
+      ...item,
+      description: descriptionInputRef.current.value.toLowerCase(),
+      quantity: parseInt(quantityInputRef.current.value),
+      mealsperquantity: parseInt(mealsperquantityInputRef.current.value),
+      category: categoryInputRef.current.value,
+      location: locationInputRef.current.value,
+      year: parseInt(yearInputRef.current.value),
+      notes: notesInputRef.current.value,
+    }
+    const id = item._id
     dispatch(updateItem({ id: id, data: editedItem }))
     onSave()
-  }
-
-  const handleChange = (e) => {
-    let value = e.target.value
-    if (e.target.name === 'quantity' || e.target.name === 'mealsperquantity' || e.target.name === 'year') {
-      value = parseInt(e.target.value)
-    } else {
-      value = e.target.value.toLowerCase()
-    }
-    setEditedItem({
-      ...editedItem,
-      [e.target.name]: value,
-    })
   }
 
   if (!open) return null
@@ -46,37 +47,37 @@ function EditModal({ open, onSave, onCancel, item }) {
             <div className='form-group'>
               <label htmlFor='description'>Item Description</label>
               <input
+                ref={descriptionInputRef}
                 type='text'
                 name='description'
                 id='description'
-                value={editedItem.description}
-                onChange={handleChange}
+                defaultValue={item.description}
                 required
               />
               <label htmlFor='quantity'>Quantity</label>
               <input
+                ref={quantityInputRef}
                 type='number'
                 name='quantity'
                 id='quantity'
-                value={editedItem.quantity}
-                onChange={handleChange}
+                defaultValue={item.quantity}
                 required
               />
               <label htmlFor='mealsperquantity'>Meals Per Quantity</label>
               <input
+                ref={mealsperquantityInputRef}
                 type='number'
                 name='mealsperquantity'
                 id='mealsperquantity'
-                value={editedItem.mealsperquantity}
-                onChange={handleChange}
+                defaultValue={item.mealsperquantity}
                 required
               />
               <label htmlFor='category'>Category</label>
               <select
+                ref={categoryInputRef}
                 name='category'
                 id='category'
-                value={editedItem.category}
-                onChange={handleChange}
+                defaultValue={item.category}
                 required>
                 <option value=''>---</option>
                 <option value='meat'>Meat</option>
@@ -87,10 +88,10 @@ function EditModal({ open, onSave, onCancel, item }) {
               </select>
               <label htmlFor='location'>Freezer Location</label>
               <select
+                ref={locationInputRef}
                 name='location'
                 id='location'
-                value={editedItem.location}
-                onChange={handleChange}
+                defaultValue={item.location}
                 required>
                 <option value=''>---</option>
                 <option value='boathouse'>Boathouse</option>
@@ -98,22 +99,22 @@ function EditModal({ open, onSave, onCancel, item }) {
               </select>
               <label htmlFor='year'>Year of Harvest (XXXX)</label>
               <input
+                ref={yearInputRef}
                 type='text'
                 minLength={4}
                 maxLength={4}
                 name='year'
                 id='year'
-                value={editedItem.year}
-                onChange={handleChange}
+                defaultValue={item.year}
                 required
               />
               <label htmlFor='notes'>Notes</label>
               <input
+                ref={notesInputRef}
                 type='text'
                 name='notes'
                 id='notes'
-                value={editedItem.notes}
-                onChange={handleChange}
+                defaultValue={item.notes}
               />
             </div>
 
