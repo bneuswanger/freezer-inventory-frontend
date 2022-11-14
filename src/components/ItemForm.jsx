@@ -98,6 +98,7 @@ function ItemForm() {
             maxLength={4}
             name='year'
             id='year'
+            defaultValue='202'
             required
           />
           <label htmlFor='notes'>Notes</label>
