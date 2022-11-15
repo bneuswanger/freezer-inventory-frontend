@@ -24,6 +24,9 @@ function ItemDisplay({ item }) {
   }
 
   const chooseImage = () => {
+    if (item.url) {
+      return item.url
+    }
     if (item.description.includes('chicken')) {
       return '/chicken.jpg'
     } else if (item.description.includes('venison')) {

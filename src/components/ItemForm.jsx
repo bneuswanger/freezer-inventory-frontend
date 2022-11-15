@@ -136,7 +136,7 @@ function ItemForm() {
             htmlFor='image'
             className='btn file-upload-btn'>
             <ImFolderUpload />
-            Upload Image
+            Select Image
           </label>
           <input
             onChange={handleFileInputChange}
@@ -156,7 +156,7 @@ function ItemForm() {
                 alt='chosen'
                 style={{ height: '200px' }}
               />
-              <p style={{ marginBottom: '30px', marginTop: '20px' }}>This image will be cropped into a square.</p>
+              <p style={{ marginBottom: '30px', marginTop: '20px' }}>This image will be intelligently cropped into a square.</p>
             </>
           )}
         </div>
