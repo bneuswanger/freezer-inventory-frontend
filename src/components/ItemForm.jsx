@@ -1,7 +1,8 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { createItem } from '../features/items/itemSlice'
 import { FaSave } from 'react-icons/fa'
+import { ImFolderUpload } from 'react-icons/im'
 
 function ItemForm() {
   const descriptionInputRef = useRef()
@@ -13,6 +14,27 @@ function ItemForm() {
   const notesInputRef = useRef()
   const dispatch = useDispatch()
 
+  // const [fileInputState, setFileInputState] = useState('')
+  // const [selectedFile, setSelectedFile] = useState('')
+  const [selectedFileName, setSelectedFileName] = useState('')
+  const [previewSource, setPreviewSource] = useState('')
+  const [fileSize, setFileSize] = useState('')
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0]
+    previewFile(file)
+    setSelectedFileName(file.name)
+    setFileSize(`${(file.size / 1000).toFixed(1)} kB`)
+  }
+
+  const previewFile = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setPreviewSource(reader.result)
+    }
+  }
+
   const clearForm = () => {
     descriptionInputRef.current.value = null
     quantityInputRef.current.value = null
@@ -21,6 +43,7 @@ function ItemForm() {
     locationInputRef.current.value = null
     yearInputRef.current.value = null
     notesInputRef.current.value = null
+    setPreviewSource('')
   }
 
   const onSubmit = (e) => {
@@ -33,7 +56,9 @@ function ItemForm() {
       location: locationInputRef.current.value,
       year: parseInt(yearInputRef.current.value),
       notes: notesInputRef.current.value,
+      base64image: previewSource,
     }
+    console.log(item)
     dispatch(createItem(item))
     clearForm()
   }
@@ -43,7 +68,6 @@ function ItemForm() {
       <form onSubmit={onSubmit}>
         <div className='form-group'>
           <label htmlFor='description'>Item Description</label>
-
           <input
             ref={descriptionInputRef}
             type='text'
@@ -108,14 +132,40 @@ function ItemForm() {
             name='notes'
             id='notes'
           />
+          <label
+            htmlFor='image'
+            className='btn file-upload-btn'>
+            <ImFolderUpload />
+            Upload Image
+          </label>
+          <input
+            onChange={handleFileInputChange}
+            type='file'
+            name='image'
+            id='image'
+            accept='image/*'
+            required
+          />
+          {previewSource && (
+            <>
+              <p style={{ marginBottom: '20px' }}>Verify correct image below!</p>
+              <p style={{ marginBottom: '10px' }}>{selectedFileName}</p>
+              <p style={{ marginBottom: '10px' }}>{fileSize}</p>
+              <img
+                src={previewSource}
+                alt='chosen'
+                style={{ height: '200px' }}
+              />
+              <p style={{ marginBottom: '30px', marginTop: '20px' }}>This image will be cropped into a square.</p>
+            </>
+          )}
         </div>
-
         <div className='form-group'>
           <button
             className='btn btn-block'
             type='submit'>
             <FaSave />
-            Save
+            Add Item
           </button>
         </div>
       </form>
