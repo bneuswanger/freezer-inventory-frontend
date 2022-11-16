@@ -90,7 +90,6 @@ function Dashboard() {
         <GiOpenTreasureChest className='treasure_chest' />
       </section>
       <h1 className='group-header'>Add New Item</h1>
-      <p className='image-support-info'>Images supported if descriptions contain: 'chicken', 'venison', 'fish', 'corn', 'kale', 'chanterelle', 'hedgehog', 'lobster', 'beans: green', 'beans: dragon', or 'blueberr'</p>
       <p className='image-support-info'>Display is grouped by chosen 'category' except in the case of meat, which is further grouped based on a description containing 'venison', 'chicken' or 'fish'</p>
       <ItemForm />
       <h1 className='group-header'>
