@@ -87,7 +87,6 @@ function ItemForm() {
       image_data: previewSource,
       public_id: publicId,
     }
-    console.log('new item before sent to server', item)
     dispatch(createItem(item))
     clearForm()
   }

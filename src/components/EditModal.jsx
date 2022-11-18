@@ -78,7 +78,6 @@ function EditModal({ open, onSave, onCancel, item }) {
       image_data: previewSource,
       public_id: publicId,
     }
-    console.log('edited item before sending to server', editedItem)
     const id = item._id
     dispatch(updateItem({ id: id, data: editedItem }))
     onSave()

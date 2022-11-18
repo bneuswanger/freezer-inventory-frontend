@@ -27,7 +27,6 @@ function Dashboard() {
       navigate('/login')
     }
     dispatch(getItems())
-    console.log('front end sent GET request for items to display')
     return () => {
       dispatch(reset())
     }
