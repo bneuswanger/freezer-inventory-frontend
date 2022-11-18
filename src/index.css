@@ -322,6 +322,14 @@ input[type="file"] {
   margin-bottom: 2rem;
 }
 
+.edit-form-image-preview-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .form-group label {
   text-align: left;
   display: block;
@@ -364,9 +372,17 @@ input[type="file"] {
 
 .image-input-wrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+  margin-top: 10px;
+}
+
+.edit-buttons-wrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 0px;
   margin-top: 10px;
 }
 
@@ -428,12 +444,14 @@ input[type="file"] {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--color-eerie-black);
-  padding: 50px 50px 30px 50px;
+  padding: 20px 50px 10px 50px;
   z-index: 1000;
   border: 3px solid var(--color-light-gray);
   box-shadow: 0px 0px 50px var(--color-light-gray);
   color: var(--color-alice-blue);
   border-radius: 1rem;
+  height: 95vh;
+  overflow: auto;
 }
 
 .delete-modal {
@@ -442,6 +460,8 @@ input[type="file"] {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: auto;
+  padding: 60px 40px 40px 40px;
 }
 
 .delete-modal-button-wrapper {
@@ -480,6 +500,26 @@ input[type="file"] {
   box-shadow: 1px 1px 5px var(--color-sonic-silver);
 }
 
+.library-image:hover {
+  cursor: pointer;
+  transform: scale(1.03);
+  box-shadow: 1px 1px 10px white;
+}
+
+.form-add-image {
+  height: 200px;
+  margin-top: 5px;
+  border: 1px solid var(--color-light-gray);
+  box-shadow: 1px 1px 5px var(--color-sonic-silver);
+}
+
+.edit-form-add-image {
+  height: 200px;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  border: 1px solid var(--color-light-gray);
+  box-shadow: 1px 1px 5px var(--color-sonic-silver);
+}
 
 .mushroom-cloud-icon {
   font-size: 9rem;

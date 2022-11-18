@@ -43,6 +43,8 @@ function ItemForm() {
   }
 
   const getImageLibrary = async () => {
+    setSelectedFileName('')
+    setFileSize('')
     try {
       const res = await fetch(API_URL)
       const data = await res.json()
@@ -85,7 +87,7 @@ function ItemForm() {
       image_data: previewSource,
       public_id: publicId,
     }
-    console.log(item)
+    console.log('new item before sent to server', item)
     dispatch(createItem(item))
     clearForm()
   }
@@ -190,15 +192,18 @@ function ItemForm() {
             </div>
             {previewSource && (
               <>
-                <p style={{ marginBottom: '20px' }}>Verify correct image below!</p>
-                <p style={{ marginBottom: '10px' }}>{selectedFileName}</p>
-                <p style={{ marginBottom: '10px' }}>{fileSize}</p>
+                <p>You have selected:</p>
+                {selectedFileName && (
+                  <p style={{ color: 'var(--color-aero' }}>
+                    {selectedFileName} - {fileSize}
+                  </p>
+                )}
                 <img
                   src={previewSource}
                   alt='chosen'
-                  style={{ height: '200px' }}
+                  className='form-add-image'
                 />
-                <p style={{ marginBottom: '30px', marginTop: '20px' }}>This image will be intelligently cropped into a square.</p>
+                <p style={{ marginBottom: '25px', marginTop: '5px' }}>Image will be saved as a square.</p>
               </>
             )}
           </div>

@@ -42,7 +42,7 @@ export const deleteItem = createAsyncThunk('items/delete', async (id, thunkAPI) 
 })
 
 // Update item
-export const updateItem = createAsyncThunk('items/update', async ({id, data}, thunkAPI) => {
+export const updateItem = createAsyncThunk('items/update', async ({ id, data }, thunkAPI) => {
   try {
     const token = thunkAPI.getState().auth.user.token
     return await itemService.updateItem(id, data, token)
@@ -115,7 +115,8 @@ export const itemSlice = createSlice({
                 category: action.payload.category,
                 location: action.payload.location,
                 year: action.payload.year,
-                notes: action.payload.notes
+                notes: action.payload.notes,
+                url: action.payload.url,
               }
             : item
         )

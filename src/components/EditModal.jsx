@@ -1,11 +1,16 @@
 import ReactDom from 'react-dom'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { updateItem } from '../features/items/itemSlice'
-import { FaSave } from 'react-icons/fa'
+import { FaSave, FaCloudDownloadAlt } from 'react-icons/fa'
 import { AiOutlineStop } from 'react-icons/ai'
+import { ImFolderUpload } from 'react-icons/im'
+import LibraryModal from './LibraryModal'
 
 function EditModal({ open, onSave, onCancel, item }) {
+  let API_URL
+  process.env.NODE_ENV === 'production' ? (API_URL = 'https://freezer-inventory.cyclic.app/images/') : (API_URL = '/images/')
+
   const descriptionInputRef = useRef()
   const quantityInputRef = useRef()
   const mealsperquantityInputRef = useRef()
@@ -15,9 +20,52 @@ function EditModal({ open, onSave, onCancel, item }) {
   const notesInputRef = useRef()
   const dispatch = useDispatch()
 
+  const [selectedFileName, setSelectedFileName] = useState('')
+  const [previewSource, setPreviewSource] = useState(item.url)
+  const [fileSize, setFileSize] = useState('')
+  const [imageLibrary, setImageLibrary] = useState([])
+  const [libraryModalOpen, setLibraryModalOpen] = useState(false)
+  const [publicId, setPublicId] = useState('')
+
+  const handleFileInputChange = (e) => {
+    const file = e.target.files[0]
+    previewFile(file)
+    setSelectedFileName(file.name)
+    setFileSize(`${(file.size / 1000).toFixed(1)} kB`)
+  }
+
+  const previewFile = (file) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(file)
+    reader.onloadend = () => {
+      setPreviewSource(reader.result)
+    }
+  }
+  const handleSelect = (e) => {
+    setLibraryModalOpen(false)
+    setPreviewSource(e.target.src)
+    setPublicId(e.target.dataset.public_id)
+  }
+
+  const handleCancel = () => {
+    setLibraryModalOpen(false)
+  }
+
+  const getImageLibrary = async () => {
+    try {
+      setSelectedFileName('')
+      setFileSize('')
+      const res = await fetch(API_URL)
+      const data = await res.json()
+      setImageLibrary(data)
+      setLibraryModalOpen(true)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const onSubmit = (e) => {
     e.preventDefault()
-
     const editedItem = {
       ...item,
       description: descriptionInputRef.current.value.toLowerCase(),
@@ -27,7 +75,10 @@ function EditModal({ open, onSave, onCancel, item }) {
       location: locationInputRef.current.value,
       year: parseInt(yearInputRef.current.value),
       notes: notesInputRef.current.value,
+      image_data: previewSource,
+      public_id: publicId,
     }
+    console.log('edited item before sending to server', editedItem)
     const id = item._id
     dispatch(updateItem({ id: id, data: editedItem }))
     onSave()
@@ -41,7 +92,7 @@ function EditModal({ open, onSave, onCancel, item }) {
         onClick={onCancel}
       />
       <div className='modal'>
-        <h1 className='edit-form_header'>Edit "{item.description}"</h1>
+        <h1 className='edit-form_header'>Editing "{item.description}"</h1>
         <section className='form'>
           <form onSubmit={onSubmit}>
             <div className='form-group'>
@@ -116,24 +167,77 @@ function EditModal({ open, onSave, onCancel, item }) {
                 id='notes'
                 defaultValue={item.notes}
               />
+              <label htmlFor='edit-image'>Change Image</label>
+              <div className='image-input-wrapper'>
+                <label
+                  htmlFor='edit-image'
+                  className='file-upload-field'>
+                  <div className='file-upload-btn-content'>
+                    <ImFolderUpload />
+                    <p>Select from Device</p>
+                  </div>
+                </label>
+                <input
+                  onChange={handleFileInputChange}
+                  type='file'
+                  name='edit-image'
+                  id='edit-image'
+                  accept='image/*'
+                />
+                <h1>or</h1>
+                <button
+                  onClick={getImageLibrary}
+                  type='button'
+                  className='file-upload-field'>
+                  <div className='file-upload-btn-content'>
+                    <FaCloudDownloadAlt />
+                    <p>Browse Library</p>
+                  </div>
+                </button>
+              </div>
+              <div className='edit-form-image-preview-wrapper'>
+                {previewSource && (
+                  <>
+                    <p>This image will be saved as a square.</p>
+                    {selectedFileName && (
+                      <p style={{ color: 'var(--color-aero' }}>
+                        {selectedFileName} - {fileSize}
+                      </p>
+                    )}
+                    <img
+                      src={previewSource}
+                      alt='chosen'
+                      className='edit-form-add-image'
+                    />
+                  </>
+                )}
+              </div>
             </div>
 
             <div className='form-group'>
-              <button
-                className='btn btn-block'
-                type='submit'>
-                <FaSave /> Save Item
-              </button>
-              <button
-                type='button'
-                onClick={onCancel}
-                className='btn btn-block'>
-                <AiOutlineStop /> Cancel
-              </button>
+              <div className='edit-buttons-wrapper'>
+                <button
+                  className='btn btn-block'
+                  type='submit'>
+                  <FaSave /> Save Item
+                </button>
+                <button
+                  type='button'
+                  onClick={onCancel}
+                  className='btn btn-block'>
+                  <AiOutlineStop /> Cancel
+                </button>
+              </div>
             </div>
           </form>
         </section>
       </div>
+      <LibraryModal
+        images={imageLibrary}
+        open={libraryModalOpen}
+        onCancel={handleCancel}
+        onSelect={handleSelect}
+      />
     </>,
     document.getElementById('portal')
   )

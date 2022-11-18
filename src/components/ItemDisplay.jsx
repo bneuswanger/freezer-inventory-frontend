@@ -23,36 +23,13 @@ function ItemDisplay({ item }) {
     setDeleteModalOpen(false)
   }
 
-  const chooseImage = () => {
-    if (item.url) {
-      return item.url
-    }
-    if (item.description.includes('chicken')) {
-      return '/chicken.jpg'
-    } else if (item.description.includes('venison')) {
-      return '/venison.jpg'
-    } else if (item.description.includes('fish')) {
-      return '/fish.jpg'
-    } else if (item.description.includes('corn')) {
-      return '/corn.jpg'
-    } else if (item.description.includes('kale')) {
-      return '/kale.jpg'
-    } else if (item.description.includes('chanterelle')) {
-      return '/chanterelle.jpg'
-    } else if (item.description.includes('hedgehog')) {
-      return '/hedgehog.jpg'
-    } else if (item.description.includes('lobster')) {
-      return '/lobster.jpg'
-    } else if (item.description.includes('beans: green')) {
-      return '/greenbeans.jpg'
-    } else if (item.description.includes('beans: dragon')) {
-      return '/mixedbeans.jpg'
-    } else if (item.description.includes('blueberr')) {
-      return '/blueberries.jpg'
-    } else {
-      return '/noimg.jpg'
-    }
-  }
+  // const chooseImage = () => {
+  //   if (item.url) {
+  //     return item.url
+  //   } else {
+  //     return '/noimg.jpg'
+  //   }
+  // }
   return (
     <>
       <div className='item'>
@@ -64,7 +41,7 @@ function ItemDisplay({ item }) {
         </h3>
         <img
           className='thumbnail'
-          src={chooseImage()}
+          src={item.url}
           alt=''
         />
         <h1>
