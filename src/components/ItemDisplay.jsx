@@ -23,13 +23,13 @@ function ItemDisplay({ item }) {
     setDeleteModalOpen(false)
   }
 
-  // const chooseImage = () => {
-  //   if (item.url) {
-  //     return item.url
-  //   } else {
-  //     return '/noimg.jpg'
-  //   }
-  // }
+  const chooseImage = () => {
+    if (item.url) {
+      return item.url
+    } else {
+      return '/noimg.jpg'
+    }
+  }
   return (
     <>
       <div className='item'>
@@ -41,11 +41,11 @@ function ItemDisplay({ item }) {
         </h3>
         <img
           className='thumbnail'
-          src={item.url}
+          src={chooseImage()}
           alt=''
         />
         <h1>
-          <span className='item-attribute item-attribute_quantity'>{item.quantity}</span>
+          <span className={`item-attribute item-attribute_quantity ${item.quantity === 0 && 'out-of-stock'}`}>{item.quantity}</span>
         </h1>
         <h2 className='item-description'>{item.description}</h2>
         <h3>

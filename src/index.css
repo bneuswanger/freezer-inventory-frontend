@@ -218,6 +218,8 @@ h3 {
   font-variant: small-caps;
 }
 
+
+
 .item-attribute_notes {
   font-weight: 400;
   font-size: 1rem;
@@ -228,6 +230,10 @@ h3 {
   font-size: 3rem;
   color: var(--color-alice-blue);
   padding: 10px;
+}
+
+.out-of-stock {
+  color: rgb(246, 73, 73);
 }
 
 .item .delete {
@@ -412,7 +418,6 @@ input[type="file"] {
 }
 
 .btn:hover {
-  transform: scale(0.98);
   background-color: var(--color-eerie-black)
 }
 
