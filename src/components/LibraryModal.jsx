@@ -1,7 +1,7 @@
 import ReactDom from 'react-dom'
 import { AiOutlineStop } from 'react-icons/ai'
 
-function LibraryModal({ open, onSelect, onCancel, images }) {
+function LibraryModal({ open, onSelect, onCancel, images, desc }) {
   if (!open) return null
   return ReactDom.createPortal(
     <>
@@ -10,7 +10,7 @@ function LibraryModal({ open, onSelect, onCancel, images }) {
         onClick={onCancel}
       />
       <div className='modal library-modal'>
-        <h1>Select an image to use by clicking on it</h1>
+        <h1>Select an image for "{desc}" by clicking on it</h1>
         <button
           type='button'
           onClick={onCancel}

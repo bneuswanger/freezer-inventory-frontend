@@ -236,6 +236,7 @@ function EditModal({ open, onSave, onCancel, item }) {
         open={libraryModalOpen}
         onCancel={handleCancel}
         onSelect={handleSelect}
+        desc={item.description}
       />
     </>,
     document.getElementById('portal')
