@@ -8,9 +8,17 @@ function ItemDisplay({ item }) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
   const openEditModal = () => {
+    if (sessionStorage.scrollPosition) {
+      sessionStorage.removeItem('scrollPosition')
+    }
+    sessionStorage.setItem('scrollPosition', window.scrollY)
     setEditModalOpen(true)
   }
   const openDeleteModal = () => {
+    if (sessionStorage.scrollPosition) {
+      sessionStorage.removeItem('scrollPosition')
+    }
+    sessionStorage.setItem('scrollPosition', window.scrollY)
     setDeleteModalOpen(true)
   }
 

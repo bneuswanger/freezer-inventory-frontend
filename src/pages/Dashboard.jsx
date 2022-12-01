@@ -5,7 +5,7 @@ import ItemForm from '../components/ItemForm'
 import Spinner from '../components/Spinner'
 import { getItems } from '../features/items/itemSlice'
 import { reset } from '../features/auth/authSlice'
-import { analyzeInventory } from '../features/items/itemCalculators'
+import { analyzeInventory } from '../features/general/itemCalculators'
 import ItemDisplay from '../components/ItemDisplay'
 import { FaArrowCircleUp } from 'react-icons/fa'
 import { GiMeal } from 'react-icons/gi'
@@ -19,6 +19,21 @@ function Dashboard() {
   const { user } = useSelector((state) => state.auth)
   const { items, isLoading, isError, message } = useSelector((state) => state.items)
 
+  const handleScrollPosition = () => {
+    const scrollPosition = sessionStorage.getItem('scrollPosition')
+    if (scrollPosition) {
+      window.scrollTo(0, parseInt(scrollPosition))
+      sessionStorage.removeItem('scrollPosition')
+    }
+  }
+  //timeout seems to be necessary due to the time it takes to render the images
+  useEffect(() => {
+    if (!isLoading)
+      setTimeout(() => {
+        handleScrollPosition()
+      }, '200')
+  }, [isLoading])
+
   useEffect(() => {
     if (isError) {
       console.log(message)
@@ -26,7 +41,9 @@ function Dashboard() {
     if (!user) {
       navigate('/login')
     }
+
     dispatch(getItems())
+
     return () => {
       dispatch(reset())
     }
