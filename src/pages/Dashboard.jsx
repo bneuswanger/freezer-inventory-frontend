@@ -55,6 +55,11 @@ function Dashboard() {
   const analyzedInventory = analyzeInventory(items)
   const itemsSnapshot = [...items]
 
+  //used for displaying category headers only when items exist for said category
+  const hasCategory = (category, array) => {
+    return array.some((item) => item.category === category)
+  }
+
   return (
     <>
       <section className='menu'>
@@ -95,9 +100,9 @@ function Dashboard() {
             </a>
           </li>
           <li className='btn menu-item'>
-            <a href='#group-header_other'>
+            <a href='#group-header_miscellaneous'>
               <MdMiscellaneousServices className='menu-icon' />
-              Other
+              Miscellaneous
             </a>
           </li>
         </ul>
@@ -107,7 +112,6 @@ function Dashboard() {
         <GiOpenTreasureChest className='treasure_chest' />
       </section>
       <h1 className='group-header'>Add New Item</h1>
-      <p className='image-support-info'>Display is grouped by chosen 'category' except in the case of meat, which is further grouped based on a description containing 'venison', 'chicken' or 'fish'</p>
       <ItemForm />
       <h1 className='group-header'>
         <GiMeal className='group-header_icon' />
@@ -168,16 +172,14 @@ function Dashboard() {
             </h1>
             <div className='all-items'>
               {itemsSnapshot
+                .filter((item) => item.category === 'chicken')
                 .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.description.includes('chicken') && (
-                      <ItemDisplay
-                        key={item._id}
-                        item={item}
-                      />
-                    )
-                )}
+                .map((item) => (
+                  <ItemDisplay
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
             </div>
             <h1
               className='group-header'
@@ -190,16 +192,14 @@ function Dashboard() {
             </h1>
             <div className='all-items'>
               {itemsSnapshot
+                .filter((item) => item.category === 'venison')
                 .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.description.includes('venison') && (
-                      <ItemDisplay
-                        key={item._id}
-                        item={item}
-                      />
-                    )
-                )}
+                .map((item) => (
+                  <ItemDisplay
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
             </div>
             <h1
               className='group-header'
@@ -212,16 +212,14 @@ function Dashboard() {
             </h1>
             <div className='all-items'>
               {itemsSnapshot
+                .filter((item) => item.category === 'fish')
                 .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.description.includes('fish') && (
-                      <ItemDisplay
-                        key={item._id}
-                        item={item}
-                      />
-                    )
-                )}
+                .map((item) => (
+                  <ItemDisplay
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
             </div>
             <h1
               className='group-header'
@@ -234,16 +232,14 @@ function Dashboard() {
             </h1>
             <div className='all-items'>
               {itemsSnapshot
+                .filter((item) => item.category === 'other vegetable' || item.category === 'beans' || item.category === 'kale' || item.category === 'corn')
                 .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.category === 'vegetable' && (
-                      <ItemDisplay
-                        key={item._id}
-                        item={item}
-                      />
-                    )
-                )}
+                .map((item) => (
+                  <ItemDisplay
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
             </div>
             <h1
               className='group-header'
@@ -256,16 +252,14 @@ function Dashboard() {
             </h1>
             <div className='all-items'>
               {itemsSnapshot
+                .filter((item) => item.category === 'mushroom')
                 .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.category === 'mushroom' && (
-                      <ItemDisplay
-                        key={item._id}
-                        item={item}
-                      />
-                    )
-                )}
+                .map((item) => (
+                  <ItemDisplay
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
             </div>
             <h1
               className='group-header'
@@ -278,39 +272,40 @@ function Dashboard() {
             </h1>
             <div className='all-items'>
               {itemsSnapshot
+                .filter((item) => item.category === 'fruit')
                 .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.category === 'fruit' && (
+                .map((item) => (
+                  <ItemDisplay
+                    key={item._id}
+                    item={item}
+                  />
+                ))}
+            </div>
+            {hasCategory('miscellaneous', itemsSnapshot) && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_miscellaneous'>
+                  <MdMiscellaneousServices className='group-header_icon' />
+                  Miscellaneous{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'miscellaneous')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
                       <ItemDisplay
                         key={item._id}
                         item={item}
                       />
-                    )
-                )}
-            </div>
-            <h1
-              className='group-header'
-              id='group-header_other'>
-              <MdMiscellaneousServices className='group-header_icon' />
-              Other{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map(
-                  (item) =>
-                    item.category === 'other' && (
-                      <ItemDisplay
-                        key={item._id}
-                        item={item}
-                      />
-                    )
-                )}
-            </div>
+                    ))}
+                </div>
+              </>
+            )}
           </>
         ) : (
           <h3>No items to display</h3>

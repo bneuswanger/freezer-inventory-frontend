@@ -68,13 +68,13 @@ function EditModal({ open, onSave, onCancel, item }) {
     e.preventDefault()
     const editedItem = {
       ...item,
-      description: descriptionInputRef.current.value.toLowerCase(),
+      description: descriptionInputRef.current.value.toLowerCase().trim(),
       quantity: parseInt(quantityInputRef.current.value),
       mealsperquantity: parseInt(mealsperquantityInputRef.current.value),
       category: categoryInputRef.current.value,
       location: locationInputRef.current.value,
       year: parseInt(yearInputRef.current.value),
-      notes: notesInputRef.current.value,
+      notes: notesInputRef.current.value.trim(),
       image_data: previewSource,
       public_id: publicId,
     }
@@ -129,12 +129,31 @@ function EditModal({ open, onSave, onCancel, item }) {
                 id='category'
                 defaultValue={item.category}
                 required>
-                <option value=''>---</option>
-                <option value='meat'>Meat</option>
-                <option value='vegetable'>Vegetable</option>
+                <option
+                  value=''
+                  disabled>
+                  -------Meats-------
+                </option>
+                <option value='fish'>Fish</option>
+                <option value='chicken'>Chicken</option>
+                <option value='venison'>Venison</option>
+                <option
+                  value=''
+                  disabled>
+                  -------Veggies-------
+                </option>
+                <option value='beans'>Beans</option>
+                <option value='corn'>Corn</option>
+                <option value='kale'>Kale</option>
+                <option value='other vegetable'>Other Vegetable</option>
+                <option
+                  value=''
+                  disabled>
+                  -------Everything Else-------
+                </option>
                 <option value='fruit'>Fruit</option>
                 <option value='mushroom'>Mushroom</option>
-                <option value='other'>Other</option>
+                <option value='miscellaneous'>Miscellaneous</option>
               </select>
               <label htmlFor='location'>Freezer Location</label>
               <select
