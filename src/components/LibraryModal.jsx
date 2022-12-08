@@ -25,7 +25,7 @@ function LibraryModal({ open, onSelect, onCancel, images, desc }) {
               data-public_id={image.public_id}
               className='library-image'
               onClick={onSelect}
-              alt=''
+              alt='library image'
             />
           ))}
         </section>
