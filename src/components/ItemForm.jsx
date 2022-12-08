@@ -148,8 +148,8 @@ function ItemForm() {
                 disabled>
                 -------Everything Else-------
               </option>
-              <option value='fruit'>Fruit</option>
               <option value='mushroom'>Mushroom</option>
+              <option value='fruit'>Fruit</option>
               <option value='miscellaneous'>Miscellaneous</option>
             </select>
             <label htmlFor='location'>Freezer Location</label>

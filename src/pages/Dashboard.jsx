@@ -55,57 +55,74 @@ function Dashboard() {
   const analyzedInventory = analyzeInventory(items)
   const itemsSnapshot = [...items]
 
-  //used for displaying category headers only when items exist for said category
   const hasCategory = (category, array) => {
     return array.some((item) => item.category === category)
+  }
+
+  const hasVeggie = () => {
+    return itemsSnapshot.some((item) => item.category === 'kale' || item.category === 'corn' || item.category === 'beans' || item.category === 'other vegetable')
   }
 
   return (
     <>
       <section className='menu'>
-        <ul>
-          <li className='btn menu-item'>
-            <a href='#group-header_chicken'>
-              <GiChicken className='menu-icon' /> Chicken
-            </a>
-          </li>
-          <li className='btn menu-item'>
-            <a href='#group-header_venison'>
-              <GiDeerHead className='menu-icon' />
-              Venison
-            </a>
-          </li>
-          <li className='btn menu-item'>
-            <a href='#group-header_fish'>
+        <nav>
+          {hasCategory('fish', itemsSnapshot) && (
+            <a
+              href='#group-header_fish'
+              className='btn menu-item'>
               <GiFishCorpse className='menu-icon' />
               Fish
             </a>
-          </li>
-          <li className='btn menu-item'>
-            <a href='#group-header_veggies'>
+          )}
+          {hasCategory('chicken', itemsSnapshot) && (
+            <a
+              href='#group-header_chicken'
+              className='btn menu-item'>
+              <GiChicken className='menu-icon' /> Chicken
+            </a>
+          )}
+          {hasCategory('venison', itemsSnapshot) && (
+            <a
+              href='#group-header_venison'
+              className='btn menu-item'>
+              <GiDeerHead className='menu-icon' />
+              Venison
+            </a>
+          )}
+          {hasVeggie() && (
+            <a
+              href='#group-header_veggies'
+              className='btn menu-item'>
               <GiBroccoli className='menu-icon' />
               Veggies
             </a>
-          </li>
-          <li className='btn menu-item'>
-            <a href='#group-header_mushrooms'>
+          )}
+          {hasCategory('mushroom', itemsSnapshot) && (
+            <a
+              href='#group-header_mushrooms'
+              className='btn menu-item'>
               <GiSuperMushroom className='menu-icon' />
               Mushrooms
             </a>
-          </li>
-          <li className='btn menu-item'>
-            <a href='#group-header_fruit'>
+          )}
+          {hasCategory('fruit', itemsSnapshot) && (
+            <a
+              href='#group-header_fruit'
+              className='btn menu-item'>
               <GiStrawberry className='menu-icon' />
               Fruit
             </a>
-          </li>
-          <li className='btn menu-item'>
-            <a href='#group-header_miscellaneous'>
+          )}
+          {hasCategory('miscellaneous', itemsSnapshot) && (
+            <a
+              href='#group-header_miscellaneous'
+              className='btn menu-item'>
               <MdMiscellaneousServices className='menu-icon' />
               Miscellaneous
             </a>
-          </li>
-        </ul>
+          )}
+        </nav>
       </section>
       <section className='heading'>
         <h1>{user && user.name.split(' ')[0]}'s Freezer Inventory</h1>
@@ -161,126 +178,150 @@ function Dashboard() {
       <section className='content'>
         {items.length > 0 ? (
           <>
-            <h1
-              className='group-header'
-              id='group-header_chicken'>
-              <GiChicken className='group-header_icon' />
-              Chicken{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .filter((item) => item.category === 'chicken')
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map((item) => (
-                  <ItemDisplay
-                    key={item._id}
-                    item={item}
-                  />
-                ))}
-            </div>
-            <h1
-              className='group-header'
-              id='group-header_venison'>
-              <GiDeerHead className='group-header_icon' />
-              Venison{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .filter((item) => item.category === 'venison')
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map((item) => (
-                  <ItemDisplay
-                    key={item._id}
-                    item={item}
-                  />
-                ))}
-            </div>
-            <h1
-              className='group-header'
-              id='group-header_fish'>
-              <GiFishCorpse className='group-header_icon' />
-              Fish{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .filter((item) => item.category === 'fish')
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map((item) => (
-                  <ItemDisplay
-                    key={item._id}
-                    item={item}
-                  />
-                ))}
-            </div>
-            <h1
-              className='group-header'
-              id='group-header_veggies'>
-              <GiBroccoli className='group-header_icon' />
-              Veggies{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .filter((item) => item.category === 'other vegetable' || item.category === 'beans' || item.category === 'kale' || item.category === 'corn')
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map((item) => (
-                  <ItemDisplay
-                    key={item._id}
-                    item={item}
-                  />
-                ))}
-            </div>
-            <h1
-              className='group-header'
-              id='group-header_mushrooms'>
-              <GiSuperMushroom className='group-header_icon' />
-              Mushrooms{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .filter((item) => item.category === 'mushroom')
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map((item) => (
-                  <ItemDisplay
-                    key={item._id}
-                    item={item}
-                  />
-                ))}
-            </div>
-            <h1
-              className='group-header'
-              id='group-header_fruit'>
-              <GiStrawberry className='group-header_icon' />
-              Fruit{' '}
-              <a href='#top'>
-                <FaArrowCircleUp className='back_to_top' />
-              </a>
-            </h1>
-            <div className='all-items'>
-              {itemsSnapshot
-                .filter((item) => item.category === 'fruit')
-                .sort((a, b) => a.description.localeCompare(b.description))
-                .map((item) => (
-                  <ItemDisplay
-                    key={item._id}
-                    item={item}
-                  />
-                ))}
-            </div>
+            {hasCategory('fish', itemsSnapshot) && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_fish'>
+                  <GiFishCorpse className='group-header_icon' />
+                  Fish{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'fish')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
+                      <ItemDisplay
+                        key={item._id}
+                        item={item}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
+            {hasCategory('chicken', itemsSnapshot) && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_chicken'>
+                  <GiChicken className='group-header_icon' />
+                  Chicken{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'chicken')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
+                      <ItemDisplay
+                        key={item._id}
+                        item={item}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
+            {hasCategory('venison', itemsSnapshot) && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_venison'>
+                  <GiDeerHead className='group-header_icon' />
+                  Venison{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'venison')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
+                      <ItemDisplay
+                        key={item._id}
+                        item={item}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
+            {hasVeggie() && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_veggies'>
+                  <GiBroccoli className='group-header_icon' />
+                  Veggies{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'other vegetable' || item.category === 'beans' || item.category === 'kale' || item.category === 'corn')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
+                      <ItemDisplay
+                        key={item._id}
+                        item={item}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
+            {hasCategory('mushroom', itemsSnapshot) && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_mushrooms'>
+                  <GiSuperMushroom className='group-header_icon' />
+                  Mushrooms{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'mushroom')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
+                      <ItemDisplay
+                        key={item._id}
+                        item={item}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
+            {hasCategory('fruit', itemsSnapshot) && (
+              <>
+                <h1
+                  className='group-header'
+                  id='group-header_fruit'>
+                  <GiStrawberry className='group-header_icon' />
+                  Fruit{' '}
+                  <a href='#top'>
+                    <FaArrowCircleUp className='back_to_top' />
+                  </a>
+                </h1>
+                <div className='all-items'>
+                  {itemsSnapshot
+                    .filter((item) => item.category === 'fruit')
+                    .sort((a, b) => a.description.localeCompare(b.description))
+                    .map((item) => (
+                      <ItemDisplay
+                        key={item._id}
+                        item={item}
+                      />
+                    ))}
+                </div>
+              </>
+            )}
             {hasCategory('miscellaneous', itemsSnapshot) && (
               <>
                 <h1
